@@ -5,6 +5,7 @@ import Loader from "../components/Loader";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from 'next/navigation'
+import Model from "../components/Model";
 
 type BodyProps = {
     title: string,
@@ -61,12 +62,7 @@ const Write = () => {
         {
            !session?.user && 
            (
-              <dialog className="w-full h-full flex justify-center flex-col items-center  bg-white border-[1px] border-slate-500 rounded-md">
-                <div className="w-[300px] h-[300px] flex flex-col justify-center items-center gap-5">
-                    <p className="text-slate-800 text-xl">Looks like you are not logged in</p>
-                    <Link href="/login" className="w-[90%] h-[30px] bg-black text-center text-white hover:bg-slate-100 hover:text-black hover:border-slate-700 rounded-r-lg">Login</Link>
-                </div>
-              </dialog>
+              <Model />
            )
         }
         <div className="w-[350px] sm:w-[75%] md:w-[65%]"> 

@@ -118,7 +118,7 @@ const Blogs = () => {
 
   function CopyUrlButton(id:string, e : any) {
     e.preventDefault();
-    const localUrl = process.env.NEXTAUTH_URL as string || "http://localhost:3000";
+    const localUrl = process.env.NEXTAUTH_URL as string || "https://next-fullstack-blog-faycryrfs-sundaram2021.vercel.app" || "http://localhost:3000" ;
     console.log('url => ', localUrl);
     
     const url = `${localUrl}/${id}`

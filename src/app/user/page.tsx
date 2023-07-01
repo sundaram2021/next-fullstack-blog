@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { MdDelete } from 'react-icons/md';
 import Loading from './loading'
 import { DateTime } from "luxon";
+import { redirect } from "next/navigation";
 
 interface User {
     id: string;
@@ -31,7 +32,12 @@ interface User {
 
 export default function User(){
 
-    const { data: session } = useSession();
+    const { data: session } = useSession({
+        required: true,
+        onUnauthenticated() {
+            redirect("/login");
+        }
+    });
     const email= session?.user?.email;
 
     const [blogs, setBlogs] = useState<Post[]>([]);

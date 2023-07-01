@@ -7,6 +7,7 @@ import { MdDelete } from 'react-icons/md';
 import Loading from './loading'
 import { DateTime } from "luxon";
 import prisma from "../../../lib/prisma";
+import { redirect } from "next/navigation";
 
 interface User {
     id: string;
@@ -44,7 +45,12 @@ interface Comment {
   
 
 export default function Admin() {
-  const { data: session } = useSession();
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+        redirect("/login");
+    }
+});
   const email = session?.user?.email;
 
   const [state, setState] = useState('blogs');

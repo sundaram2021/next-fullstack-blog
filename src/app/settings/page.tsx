@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSession, signOut } from "next-auth/react";
 import Loader from "../components/Loader";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 type User = {
   name: string;
@@ -11,7 +11,12 @@ type User = {
 };
 
 const Settings = () => {
-  const { data:session } = useSession();
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+        redirect("/login");
+    }
+});
   const router = useRouter();
   const [user, setUser] = useState<User>({
     name: "",
