@@ -68,7 +68,7 @@ const Blogs = () => {
       const allBlogs = await res.json();
       setBlogs(allBlogs);
     } catch (error) {
-      setBlogState("Error in fetching blogs");
+      setBlogState("Error: "+ error);
     }
   }
 
@@ -158,14 +158,10 @@ const Blogs = () => {
   };
 
   console.log("blogs", blogs);
-
-  // console.log("comments : ", blogs.comments.map((comment) => comment.comment));
-  
   
 
   return ( 
     <>
-     (blogState !== "" && <p>{blogState}</p>)
       {blogs === undefined || blogs === null || blogs.length === 0 ? (
         // Placeholder loading UI
         <Loading />
