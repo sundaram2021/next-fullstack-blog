@@ -42,3 +42,7 @@ export async function POST(req: NextRequest ) {
   console.log('user after prisma: ', user);
   return new Response(JSON.stringify(user));
 }
+
+export async function GET(req: NextRequest) {
+  // const id = req as string;
+}

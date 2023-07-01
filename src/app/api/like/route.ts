@@ -20,9 +20,12 @@ export async function POST(req:Request) {
         } 
     })
 
+    console.log("isLikedIdExist : ", isLikedIdExist);
+    
+
     if(!isLikedIdExist){
       await prisma.like.create({
-        data : {
+        data: {
             likedPostId: likedPostId,
             likedUserEmail: likedUserEmail,
             state: true
@@ -31,7 +34,7 @@ export async function POST(req:Request) {
     } else {
       await prisma.like.delete({
         where : {
-          likedPostId: likedPostId
+          id: isLikedIdExist.id,
         }
       })
     }

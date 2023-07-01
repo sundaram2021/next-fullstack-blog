@@ -31,16 +31,16 @@ model User {
 
 model Like {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  likedPostId    String  @unique
-  likedUserEmail String  @unique
+  likedPostId    String  
+  likedUserEmail String  
   state   Boolean @default(false)
 
 }
 
 model Save {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  savedPostId    String  @unique
-  savedUserEmail String  @unique
+  savedPostId    String  
+  savedUserEmail String  
   state Boolean  @default(false)
 }
 

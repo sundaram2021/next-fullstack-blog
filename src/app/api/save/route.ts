@@ -26,7 +26,7 @@ export async function POST(req:Request) {
     } else {
       await prisma.save.delete({
         where : {
-          savedPostId: savedPostId
+          id: isSavedIdExist.id,
         }
       })
     }
