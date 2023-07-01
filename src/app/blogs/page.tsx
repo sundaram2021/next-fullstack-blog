@@ -55,16 +55,21 @@ const Blogs = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [comment, setComment] = useState("");
+  const [blogState, setBlogState] = useState<string>("");
 
   const email = session?.user?.email;
 
   async function getBlogs() {
-    const res = await fetch("/api/blogs", {
-      method: "GET",
-    });
-
-    const allBlogs = await res.json();
-    setBlogs(allBlogs);
+    try {
+      const res = await fetch("/api/blogs", {
+        method: "GET",
+      });
+  
+      const allBlogs = await res.json();
+      setBlogs(allBlogs);
+    } catch (error) {
+      setBlogState("Error in fetching blogs");
+    }
   }
 
   async function getUsers() {
@@ -158,8 +163,9 @@ const Blogs = () => {
   
   
 
-  return (
+  return ( 
     <>
+     (blogState !== "" && <p>{blogState}</p>)
       {blogs === undefined || blogs === null || blogs.length === 0 ? (
         // Placeholder loading UI
         <Loading />
