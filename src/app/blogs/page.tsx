@@ -9,6 +9,7 @@ import { RxAvatar } from "react-icons/rx";
 // import { Post, User, Comment, Like, Save } from "@prisma/client"; // Assuming User is the interface 
 import Loading from "./loading";
 import { DateTime } from "luxon";
+import { redirect } from "next/navigation";
 
 interface User {
   id: string;
@@ -83,6 +84,9 @@ const Blogs = () => {
 
 
   const handleLike = async (blogId: string) => {
+    if(session === null || session === undefined) {
+      redirect("/login");
+    }
     setBlogs(blogs.map((blog) => (blog.id === blogId ? { ...blog, liked: !blog.liked  } : blog)))
     try {
       const res = await fetch("/api/like", {
@@ -101,6 +105,9 @@ const Blogs = () => {
   };
 
   const handleSave = async (blogId: string) => {
+    if(session === null || session === undefined) {
+      redirect("/login");
+    }
     setBlogs(blogs.map((blog) => (blog.id === blogId ? { ...blog, saved: !blog.saved  } : blog)))
     try {
       const res = await fetch("/api/save", {
