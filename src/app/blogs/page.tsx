@@ -173,7 +173,7 @@ const Blogs = () => {
         // Placeholder loading UI
         <Loading />
       ) : (
-        <div className="p-10 max-w-[80vw] mx-auto flex flex-col items-center justify-normal mt-8">
+        <div className="p-10 max-w-[100vw] md:max-w-[80vw] mx-auto flex flex-col items-center justify-normal mt-8">
           {blogs.map((blog) => {
             const author = users.find((user) => user.id === blog.authorId);
             const authorName = author ? author.name : "";
@@ -181,7 +181,7 @@ const Blogs = () => {
             return (
               <main
                 key={blog.id}
-                className="w-[95%] sm:w-[90%] md:w-[75%] bg-slate-100 p-3 rounded-sm mx-auto mb-[1rem]"
+                className="w-full md:w-[75%] bg-slate-100 p-3 rounded-sm mx-auto mb-[1rem]"
               >
                 <div className="flex justify-between flex-col-reverse mb-4 relative">
                   

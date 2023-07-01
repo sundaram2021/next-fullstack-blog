@@ -77,7 +77,7 @@ const Liked = () => {
         :
         likedBlogs.map((blog) => {
             return (
-            <div className="p-10 max-w-[80vw] mx-auto flex flex-col items-center justify-normal" key={blog.id}>
+            <div className="p-10 md:max-w-[80vw] max-w-[100vw] mx-auto flex flex-col items-center justify-normal" key={blog.id}>
                 <main className="w-[95%] sm:w-[75%] md:w-[65%] bg-slate-100 p-3 rounded-sm mx-auto mb-[1rem] ${index === 0 || index ===1 || index === 2 ? '' : 'cursor-pointer '}">
                     <div className="flex justify-between flex-col-reverse">
                         <p className="py-3 text-2xl font-bold max-w-[300px] sm:w-[100%] whitespace-normal text-justify">{blog.title}</p>

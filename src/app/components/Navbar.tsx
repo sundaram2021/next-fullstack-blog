@@ -48,10 +48,12 @@ const Navbar = () => {
 
     const handleHamb = () => {
         setHamb(!hamb);
+        setShow(false);
     }
 
     const handleClick = () => {
        setShow(!show);
+       setHamb(false);
     }
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -99,10 +101,10 @@ const Navbar = () => {
     
 
     return <div className="">
-        <div className="w-[100vw] bg-slate-100">
-            <nav className="flex justify-between items-center max-w-[90vw] mx-auto p-10 relative">
+        <div className="md:w-[100vw] w-full bg-slate-100">
+            <nav className="flex justify-between items-center w-[100%] mx-auto p-10 relative">
                 <div className="mr-auto flex justify-around items-center">
-                    <h1 className="text-2xl cursor-pointer"><Link href='/'>BlogPedia</Link></h1>
+                    <h1 className="md:text-2xl cursor-pointer  text-lg"><Link href='/'>BlogPedia</Link></h1>
                     <div className="flex justify-between items-center relative w-[230px] sm:w-[420px] md:w-[500px] ml-4">
                         <AiOutlineSearch className="text-xl mr-[10px] cursor-pointer z-10" />
                         <input type="text" className="w-[85%] h-[30px] pl-6 rounded-md  bg-slate-200 text-gray-900 focus:outline-none focus:bg-gray-300 absolute left-0 " onChange={onChangeHandler} placeholder="Search" />
@@ -119,10 +121,10 @@ const Navbar = () => {
                 )}
                 <div className="relative w-[100%]">
                     <ul className={`w-[90.1vw] absolute top-[7.9vh] right-[-9.9vw] sm:pl-6 md:left-[-20.9vh] z-50 ml-0 mr-auto bg-slate-100 ${!hamb ? "mt-[-140vh]" : ""} transition-all ease-in-out duration-600 md:flex md:relative md:justify-end md:items-center md:w-min md:ml-auto md:mr-[-9rem] md:mt-0 md:top-0`}>
-                        <li><Link href="/" className="h-[50px] block  hover:bg-slate-200 rounded-lg     text-lg pl-[6vh] py-4 bottom-[2rem] w-[100%] md:pl-0 md:bottom-0 md:w-[120px]  md:text-center  hover:ease-in-out ">Home</Link></li>
-                        <li><Link href="/blogs" className="h-[50px] text-lg pl-[6vh] rounded-lg block hover:bg-slate-200 py-4 bottom-[2rem] w-[100%] md:pl-0 md:bottom-0 md:w-[120px]  md:text-center ">Blogs</Link></li>
-                        <li><Link href="/write" className="h-[50px] text-lg pl-[6vh] py-4 bottom-[2rem] rounded-lg w-[100%] md:pl-0 md:bottom-0 md:w-[120px]  md:text-center block hover:bg-slate-200">Write</Link></li>
-                        {(!session?.user)  && (<li><Link href="/login" className="h-[50px] rounded-lg text-lg pl-[6vh] py-4 bottom-[2rem] w-[100%] md:pl-0 md:bottom-0 md:w-[120px]  md:text-center block hover:bg-slate-200">Login</Link></li>)}
+                        <li><Link href="/" className="h-[50px] block  hover:bg-slate-200 rounded-lg text-lg pl-[6vh] py-4 bottom-[2rem] w-[100%] md:pl-0 md:bottom-0 md:w-[120px]  md:text-center  hover:ease-in-out " onClick={() => {setHamb(false),setShow(false)}}>Home</Link></li>
+                        <li><Link href="/blogs" className="h-[50px] text-lg pl-[6vh] rounded-lg block hover:bg-slate-200 py-4 bottom-[2rem] w-[100%] md:pl-0 md:bottom-0 md:w-[120px]  md:text-center " onClick={() => {setHamb(false),setShow(false)}}>Blogs</Link></li>
+                        <li><Link href="/write" className="h-[50px] text-lg pl-[6vh] py-4 bottom-[2rem] rounded-lg w-[100%] md:pl-0 md:bottom-0 md:w-[120px]  md:text-center block hover:bg-slate-200" onClick={() => {setHamb(false),setShow(false)}}>Write</Link></li>
+                        {(!session?.user)  && (<li><Link href="/login" className="h-[50px] rounded-lg text-lg pl-[6vh] py-4 bottom-[2rem] w-[100%] md:pl-0 md:bottom-0 md:w-[120px]  md:text-center block hover:bg-slate-200" onClick={() => {setHamb(false),setShow(false)}}>Login</Link></li>)}
                     </ul>
                 </div>
                 <div className="flex justify-around items-center ">
