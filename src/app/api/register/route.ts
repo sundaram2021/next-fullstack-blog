@@ -29,7 +29,7 @@ export async function POST(req:Request) {
 
 // interface extendedRequest extends Request {
 
-export async function Put(req:Request) {
+export async function PUT(req:Request) {
     console.log('222323');
     
     
