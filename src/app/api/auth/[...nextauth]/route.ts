@@ -2,58 +2,60 @@ import type { NextAuthOptions } from "next-auth"
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials"
 import prisma from "../../../../../lib/prisma";
+import bcrypt from 'bcrypt';
+// import { PrismaAdapter } from 'next-auth/prisma-adapter';
 
-export const authOptions:NextAuthOptions = {
+const handler = NextAuth({
     
   providers: [
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
       name: 'Credentials',
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
         name: { label: "name", type: "text", placeholder: "jsmith" },
         email: { label: "email", type: "text", placeholder: "jsmith@test.com" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials, req) {
-        console.log("1");
-        console.log("credentials : ", credentials);
-
-        // const userInfo = await prisma.user.findUnique({
-        //   where: {
-        //       email: credentials?.email,
-        //   }
+      async authorize(credentials) {
+        // console.log("1");
+        // console.log("credentials : ", credentials);
+        // const res = await fetch("http://localhost:3000/api/login", {
+        //   method: 'POST',
+        //   body: JSON.stringify({ name: credentials?.name, email: credentials?.email, password: credentials?.password }),
+        //   headers: { "Content-Type": "application/json" }
         // })
-
-        // if(userInfo === null) return null;
-        
-        
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid.
-        // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-        // You can also use the `req` object to obtain additional parameters
-        // (i.e., the request IP address)
-        const res = await fetch("http://localhost:3000/api/login", {
-          method: 'POST',
-          body: JSON.stringify({ name: credentials?.name, email: credentials?.email, password: credentials?.password }),
-          headers: { "Content-Type": "application/json" }
-        })
-        const user = await res.json()
-        console.log("User is : " , user);
+        // const user = await res.json()
+        // console.log("User is : " , user);
         
   
-        // If no error and we have user data, return it
-        if (res.ok && user) {
-          console.log(user); 
+        // // If no error and we have user data, return it
+        // if (res.ok && user) {
+        //   console.log(user); 
 
-          return user
+        //   return user
+        // }
+        // // Return null if user data could not be retrieved
+        // return null
+
+        try {
+          const user = await prisma.user.findFirst({
+            where: {
+              email: credentials?.email
+            }
+          })
+          if(user){
+            const isPasswordMatch = await bcrypt.compare(credentials?.password as string, user.password);
+            if(isPasswordMatch){
+              const { password, ...userWithoutPassword } = user;
+              return userWithoutPassword;
+            } else {
+              throw new Error('Password does not match!');
+            }
+          } else {
+            throw new Error('No user found!');
+          }
+        } catch (error) {
+          throw new Error(error as unknown as string);
         }
-        // Return null if user data could not be retrieved
-        return null
       }
     })
   ],
@@ -73,11 +75,8 @@ export const authOptions:NextAuthOptions = {
   },
   pages: {
     signIn: '/login',
-    // signOut: '/auth/signout',
-    // error: '/auth/error', // Error code passed in query string as ?error=
-    // verifyRequest: '/auth/verify-request', // (used for check email message)
-    // newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
+    error: '/login',
   }
-};
-const handler = NextAuth(authOptions)
+});
+// const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }
