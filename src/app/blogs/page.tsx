@@ -133,7 +133,7 @@ const Blogs = () => {
     const localUrl = process.env.NEXTAUTH_URL as string || "https://next-fullstack-blog-faycryrfs-sundaram2021.vercel.app" || "http://localhost:3000" ;
     console.log('url => ', localUrl);
     
-    const url = `${localUrl}/${id}`
+    const url = `${localUrl}/blogs/${id}`
     navigator.clipboard.writeText(url);
     if (typeof window !== "undefined" && window.Notification && Notification.permission === "granted") {
       new Notification("Url is copied to clipboard");
@@ -173,7 +173,7 @@ const Blogs = () => {
         // Placeholder loading UI
         <Loading />
       ) : (
-        <div className="p-10 max-w-[100vw] md:max-w-[80vw] mx-auto flex flex-col items-center justify-normal mt-8">
+        <div className="lg:p-10 max-w-[100vw] md:max-w-[80vw] mx-auto flex flex-col items-center justify-normal mt-8">
           {blogs.map((blog) => {
             const author = users.find((user) => user.id === blog.authorId);
             const authorName = author ? author.name : "";
@@ -181,7 +181,7 @@ const Blogs = () => {
             return (
               <main
                 key={blog.id}
-                className="w-full md:w-[75%] bg-slate-100 p-3 rounded-sm mx-auto mb-[1rem]"
+                className="w-full md:w-[75%] bg-slate-50 p-3 rounded-sm mx-auto mb-[1rem]"
               >
                 <div className="flex justify-between flex-col-reverse mb-4 relative">
                   
